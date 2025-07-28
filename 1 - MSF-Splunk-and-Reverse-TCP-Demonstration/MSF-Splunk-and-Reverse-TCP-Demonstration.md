@@ -1,11 +1,23 @@
-Home Lab Project
+ # MSF,Splunk and Reverse Shell Attack Demonstration
+
+> MSF (Metsploit Framework) is an open-source tool that is used to create and run exploit code remotely onto target systems.
+
+> Splunk is a big data platform that manages large volumes of data by searching for information within it and indexes it.
+
+> A reverse shell attack is an attack where an attacker initiates a shell session on the target's comptuer and redirects the input and output so that the attacker can access it remoteley. From here, the attacker's opportunities are limitless as they can open ports to the target machine and allow for a complete takeover of the machine. 
+
+##Overview
+This project has two objectives; one is to demonstrate how hackers exploit ports and use MSF to carry out attacks such as the reverse shell attack, and the other is to view data from the target machine on Splunk and locate the cause of the attack. This will be done by creating two virtual machines, one running Kali Linux (the attacker machine) and the other running Windows 10 (the target machine). MSF will be used to create the payload on the Kali virtual machine `(VM)` and will be delivered to the Windows 10 VM using an .exe file, diguised as a .pdf. The exploit will then be executed and will create a shell window on the Kali machine, allowing for any command to be carried out using the CLI. Data and fields should then be visible on Splunk and would provide data to a security analyst to determine the cause of the attack.
 
 
-Purpose of a home lab
+
+## Purpose of a home lab
 As a student who is aspiring to break into the cybersecurity field, I have learnt that hands-on experience is essential to be kept in the loop as the field is everchanging. A home lab allows for me to test out real-world problems, experiment and learn to understand how attacks occur in a safe, sandboxed environment. For this project, I will set up two virtual machines (one running Kali Linux and the other running Windows 10) and have one act as an attacker and the other as a target. I will try to gain access to the Windows virtual machine’s shell via a reverse shell attack. A reverse shell attack initiates a shell session and allows for the attacker to redirect the input and outputs of the shell so that it can be used by the attacker. The delivery method of this attack that I will use is an .exe file disguised as a .pdf.
 
 
-Steps followed
+
+
+## Steps followed
 1.	First, I chose a hosted hypervisor. I chose Virtualbox because I was familiar with it and had previously used it.
 2.	Next, I downloaded Kali Linux and the Windows 10 ISO from their respective websites and set them up on Virtualbox.
 3.	I downloaded Sysmon and Splunk on the Windows 10 machine at this point as it still has a connection to the internet.
