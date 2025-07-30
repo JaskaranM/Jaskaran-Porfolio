@@ -44,7 +44,14 @@ The goal of my project is to set up a system where :
 5.	The action is carried out on the client machine and the threat is stopped
 
 The flow of the SOC system can be better visualised with the diagram below:
- 
+
+ <br><br>
+
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture9.png">
+</div>
+
+<br><br>
 
 ## Steps
 1.	First, install VirtualBox and loads a Windows 10 ISO on it. Then install Sysmon and download the config file and place it in the Sysmon directory
@@ -62,71 +69,230 @@ The flow of the SOC system can be better visualised with the diagram below:
 13.	Login to Wazuh, using the IP of the machine and the credentials you saved earlier
 14.	Add an agent and put in the public IP of Wazuh. Copy the commands shown on the Wazuh dashboard and run them on the Window 10 virtual machine. The agent should now be visible in the Wazuh dashboard
 
- 
+<br><br>
+    
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture10.png">
+</div>
+
+ <br><br>
 
 15.	On the Windows 10 VM, go to the ossec-agent folder and edit the ossec.conf file and add the following under the Log analysis section. Restart Wazuh under services
+
+<br><br>
+
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture11.png">
+</div>
+
+<br><br>
  
 16.	Open Windows Security and add an exclusion. The excluded memory area will be where Mimikatz will be ran
 17.	Download and save Mimikatz to the excluded memory area. Using powershell (with admin privileges), CD into the directory and run Mimikatz ( .\mimikatz.exe) 
 18.	You should now be able to see events flowing in from the VM onto Wazuh 
- 
+
+<br><br>
+
+ <div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture12.png">
+</div>
+
+<br><br>
 
 Searching  for Mimikatz, I can see all the details about the malware running on the machine
- 
 
+ <br><br>
+
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture13.png">
+</div>
+
+<br><br>
 
 19.	Use PuTTy to access the Wazuh terminal and navigate to the ossec.conf file, using nano /var/ossec/etc/ossec.conf. Locate <logall>no</logall> and replace the no with a yes. Restart Wazuh manager using “systemctl restart wazuh-manager.service”
 
 20.	Currently, an attacker could simply rename the file to something else, and it would not trigger an alert. This can be nullified by creating a rule on Wazuh that uses the originalFileName. Navigate to ‘Rules’ under ‘Administration’, mange rule files, custom rules and then add the rule and the details about the rule.
 
- 
+<br><br>
+
+ <div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture14.png">
+</div>
+
+<br><br>
+
 
 21.	To verify that this works, I have renamed the file, and it still triggers an alert on Wazuh 
- 
+
+<br><br>
+
+
+ <div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture15.png">
+</div>
+
+<br><br>
+
 
 The malware is still detected and triggers an alert on Wazuh
+
+<br><br>
  
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture16.png">
+</div>
+
+<br><br>
+
 
 22.	Login to Shuffler and create a workflow
 23.	To start creating the workflow, add a webhook and copy the webhook URI
 24.	Connect to Wazuh CLI (command line interface) and open the ossec.conf file again. Paste the integration tag, save it then restart Wazuh
- 
+
+<br><br>
+
+
+ <div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture17.png">
+</div>
+
+<br><br>
+
 
 25.	 Rerunning the Mimikatz malware should now send an alert to Shuffler that has the data of the alert
+
+<br><br>
+
  
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture18.png">
+</div>
+
+<br><br>
 
 26.	Change the tool in Shuffler to Regex capture group and ensure that the input data and Regex parameters are like this:
+
+<br><br>
+
+
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture19.png">
+</div>
+
+<br><br>
+
  
 This will parse out the SHA256 hash which we can then feed into VirusTotal
 
 
 27.	Create an account on VirusTotal and copy over your API key. Add VirusTotal to your workflow and input the API key. Change the action to “Get a hash report” and set the hash parameter to “$sha256_regex.group_0.#”. This will take the hash that was parsed out in the previous step and send it to VirusTotal
+
+
 28.	Login to the Hive’s dashboard and create an organisation and a two users under it; One of the users should have the analyst profile and the other should be a service account. The principle of least privilege should be applied when giving permissions. Create an API key and copy it
+
+
 29.	Add the Hive to your Shuffler workflow and authenticate it using the API key. Change the action to “Create Alert”. Modify the JSON code to fit your requirements for the alert
- 
+
+<br><br>
+
+
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture20.png">
+</div>
+
+<br><br>
+
 
 30.	Add a new rule to your firewall on DigitalOcean to allow IPs to access port 9000 (where the Hive instance is running)
 
 You should now be able to login as the analyst account and see the Mimikatz alert appear on the dashboard
+
+<br><br>
+
+
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture21.png">
+</div>
+
+<br><br>
+
  
 31.	Add the email action in Shuffler and connect it to VirusTotal. Add the recipients of the email, subject and the body of the email. 
- 
+
+<br><br>
+
+
+ <div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture22.png">
+</div>
+
+<br><br>
+
+
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture23.png">
+</div>
+
+<br><br>
+
  
 32.	Add the http action to your workflow and change the action to curl and add the following, replacing the Wazuh IP, username and password with your own
+
+<br><br>
+
  
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture24.png">
+</div>
+
+<br><br>
+
 
 33.	Add the Wazuh action to the workflow and add “$exec.all_fields.agent.id” to the  agents list field
 34.	Connect to the Wazuh CLI and navigate to the ossec.conf file. Under the “Active Response” section,  add an active response for the firewall drop and then restart the Wazuh manager
 
- 
+<br><br>
+
+
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture25.png">
+</div>
+
+ <br><br>
+
 
 35.	Add the user_input action in Shuffler and set it up to show the source IP and send an email to the analyst
+
+<br><br>
+
  
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture26.png">
+</div>
+
+<br><br>
+
 
 Selecting on the TRUE link will present this:
- 
+
+<br><br>
+
+
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture27.png">
+</div>
+
+ <br><br>
+
 
 Returning to the Windows 10 VM, you can attempt to ping the IP address to verify that the IP address has been blocked
 
-  
+<br><br>
+
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture28.png">
+
+
+## Summary
+</div>  
 
