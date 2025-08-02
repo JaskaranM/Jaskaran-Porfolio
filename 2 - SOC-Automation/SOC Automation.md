@@ -25,7 +25,9 @@
 
 ## Video demonstration of the System
 
-[![Watch the video](https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Untitled.jpg)](https://www.youtube.com/@jaskaranmahal1244)
+Please click on the image below to see my demonstration of the system working.
+
+[![Watch the video](https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Untitled.jpg)](https://youtu.be/jKY5rveEbzw)
 
 ## What is a SOC?
 A security operations centre is responsible for detecting, analysing and responding to cyber-attacks in order to minimise the damage dealt by cyber-attacks. It does this by maintaining vigilance over the network, systems and applications running to ensure a proactive defensive posture.  SOCs are equipped with a multitude of tools to do so, including :
