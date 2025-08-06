@@ -297,6 +297,12 @@ Returning to the Windows 10 VM, you can attempt to ping the IP address to verify
   <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/Picture28.png">
 </div>
 
+## Incident Report
+It is paramount that an incident report is made after any security incident. The report will be utilised to report to stakeholders, affected customers, law enforcement and business partners about the details of the incident and to improve the security of the system in order to prevent future attacks from occuring in the same way. It is also a legal requirement due to laws  (CIRCIA in the USA and GDPR in the EU) and therefore must be completed and reported within the legal timeframe give. 
+
+Different g
+
+
 ## Summary
 At the end of all of this, you should have a system that detects Mimikatz on PCs in a network, creates an alert, enriches the IOCS and sends an email to a SOC analyst to allow for a response action to be chose and executed. This current system only works for Mimikatz for demonstration purposes. However it can easily be expanded upon to detect a wide variety of threats by creating more rules in Wazuh but this would also mean that more response actions would need to be implemented as there is no one action that is the appropriate response for every threat.
 
