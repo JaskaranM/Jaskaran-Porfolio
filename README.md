@@ -7,4 +7,4 @@ After experimenting with different fields of computer science, I discovered that
 
 For more information, please contact me on [Linkedin](https://www.linkedin.com/in/jaskaran-mahal-555a98327/)
 
-Thank you for your time!
+Thank you for your time.
