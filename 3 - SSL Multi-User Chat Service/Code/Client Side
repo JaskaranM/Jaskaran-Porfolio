@@ -1,0 +1,106 @@
+package Code;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class Client {
+
+    private static final String SERVER_IP = ""; // Server IP needs to be added
+    private static final int SERVER_PORT = ; // Server port number also needs to be input 
+
+    public static void main(String[] args) {
+
+        try {
+            
+            BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
+            
+            // 1. Join a group chat (by getting username)
+            System.out.print("Enter your username: ");
+            String username = consoleReader.readLine();
+
+            // 1. Join a group chat (by connecting to the server)        
+            try (
+                Socket socket = new Socket(SERVER_IP, SERVER_PORT);
+                // PrintWriter for sending messages to the server 
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                
+                // BufferedReader for receiving messages from the server 
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))
+            ) {
+                
+                System.out.println("Connected to the chat server as " + username);
+
+                //  separate thread just for receiving messages.
+                //  passed it the 'in' reader and 'username'
+                Thread receiverThread = new Thread(new MessageReceiver(in, username));
+                receiverThread.setDaemon(true); // Ensures the thread exits when the main program does
+                receiverThread.start();
+
+                // 2. Post a message (in the main thread)
+                // The main thread will now *only* handle sending messages
+                String userInput;
+                while (true) {
+                    // This line blocks the MAIN thread, but the receiverThread is still running!
+                    userInput = consoleReader.readLine(); 
+                    
+                    if (userInput != null) {
+                        if ("/quit".equalsIgnoreCase(userInput)) {
+                            System.out.println("Disconnecting...");
+                            break; // Exit the loop and close the try-with-resources
+                        }
+                        
+                        // Format the message with the user's identity
+                        String formattedMessage = username + ": " + userInput;
+                        
+                        // Send the formatted message to the server
+                        out.println(formattedMessage);
+                    }
+                }
+
+            } catch (UnknownHostException e) {
+                System.err.println("Server not found: " + e.getMessage());
+            } catch (IOException e) {
+                System.err.println("Connection failed. Make sure the server is running.");
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error reading from console: " + e.getMessage());
+        }
+    }
+}
+
+/**
+ * 3. Receive and view messages
+ * This class runs on a separate thread to handle incoming messages.
+ * It implements 'Runnable', = 'run()' method will be executed by the new thread.
+ */
+class MessageReceiver implements Runnable {
+    private BufferedReader in;
+    private String clientUsername;
+
+    public MessageReceiver(BufferedReader in, String username) {
+        this.in = in;
+        this.clientUsername = username;
+    }
+
+    @Override
+    public void run() {
+        try {
+            String serverMessage;
+            // This loop constantly blocks *this thread*, waiting for server messages
+            while ((serverMessage = in.readLine()) != null) {
+                
+                // doesn't print your own messages back to self (the server will echo them).
+                if (!serverMessage.startsWith(clientUsername + ":")) {
+                    System.out.println(serverMessage); // Print the received message
+                }
+            }
+        } catch (IOException e) {
+            // This will happen when the server or client disconnects
+            System.out.println("You have been disconnected.");
+        }
+    }
+}
