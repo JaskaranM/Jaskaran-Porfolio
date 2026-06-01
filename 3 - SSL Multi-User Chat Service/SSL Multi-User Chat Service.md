@@ -141,3 +141,40 @@ Clicking on a packet allows us to see the message in plaintext form, displaying 
 
 ## Secured
 
+The secured version of the chat service secures traffic with encryption by scrambling the data using a shared secret key that is exchanged between server and client during the handshake. This ensures that data sent is encrypted and cannot be read when using a network traffic tool such as Wireshark. By filtering by the port number again, we can see the network traffic and can also see the Client Hello and Server Hello which is the TLS handshake where the algorithms and session keys were agreed upon. 
+
+<br><br>
+
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/room15.png">
+</div>
+
+<br><br>
+
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/room16.png">
+</div>
+
+<br><br>
+
+Despite encryption, there is information that cannot be encrypted such as the IP addresses as routers need this information to route packets. The port numbers in use also must be visible so that the server can receive the data being sent from clients. Finally, the TLS Verison also must be visible as this is essential in the handshake so that the client and server can agree on a security level. Inspecting a packet below shows indecipherable language as the messages are encrypted and can only be decrypted with the session keys. With encryption in place, anyone observing the traffic would only be able to know that data was sent between two IPs, on what port and the version of TLS used but would not be able to see the data sent as it is encrypted.
+
+<br><br>
+
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/room17.png">
+</div>
+
+<br><br>
+
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/room18.png">
+</div>
+
+<br><br>
+
+
+# Summary
+In summary, this project taught me how to use Java socket programming to create a multi-threaded chatroom and the issues that come with it in the form of man in the middle attacks. I then researched and implemented SSL as required by the brief of the module. The encryption was then validated by observing the network traffic using Wireshark and comparing it to the unencrypted version of the chatroom. Additional checks were included such as ensuring that only a secure client using the SSL encrpytion could connect to the server. Furthermore, another potential issue that could affect the availability aspect of the CIA triad was identified (spamming the server with messages using a bot), and was remedied by implemented a token based bucket system which only allows users to send messages if they have a token. At most they could have 5 token (replenishing at 1 per second) which did not limit or affect the experience of legitimate users but did mitigate the impact a malicious user would have on the network and CPU resources. 
+
+If I was to do this project again in the future, I would replace the harcoded keystore password and instead inject it at runtime using environmetal variables or a secret manager to lower the risk of compromising the private key. Another thing I would add mutual TLS authentication to ensure that only authorised users can connect. Finally, I would add input sanitisation and logic checks to prevent malicious scripts or commands to be pushed which can be prevented by removing executable control characters and enforcing a max character limit. Overall, I am pleased at the insight the project has given me from a security standpoint.
