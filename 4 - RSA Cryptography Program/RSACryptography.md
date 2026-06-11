@@ -1,4 +1,4 @@
-I learnt about RSA cryptography my mathematics for coding professionals module  at university. The simplified version on how RSA works is :
+I learnt about RSA cryptography in my mathematics for coding professionals module  at university. The simplified version on how RSA works is :
 
 - Two large prime numbers are chosen and are kept secret
 - The prime numbers are multiplied to create n (number that is used as the modulus for encryption and decryption)
