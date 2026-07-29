@@ -13,7 +13,7 @@
 
 > VirusTotal – VirusTotal is a malware detection tool that works by analysing files and websites and checking them through a large variety of antiviruses, which check by comparing the signatures against a database of known signatures
 
-> VirutalBox is a hosted hypervisor used to create a virtual machine which will acta as a PC in a network in this project (running Windows 10)
+> VirutalBox is a hosted hypervisor used to create a virtual machine which will act as a PC in a network in this project (running Windows 10)
 
 > DigitalOcean was used as a cloud infrastructure provider to allow me to create two machines – one running the Hive and the other running Wazuh
 
