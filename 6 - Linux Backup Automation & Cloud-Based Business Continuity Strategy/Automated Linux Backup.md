@@ -96,6 +96,31 @@ fi
 backup "$@"
 
 ```
+### Validation 
+
+
+<br><br>
+    
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/backup1.png">
+</div>
+
+ <br><br>
+
+
+Image of the backup script in execution, listing the files backed up and the name of the backup which specifies the type of backup and the timestamp.
+
+
+<br><br>
+    
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/proof1.png">
+</div>
+
+Image shows the script's execution under processes and the backup files created
+
+<br><br>
+
 
 
 
@@ -155,7 +180,31 @@ disk_monitor "$@"
 
 ---
 
-## Cron Scheduling & Verification
+## Verification
+
+<br><br>
+    
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/cron1.png">
+</div>
+
+<br><br>
+
+
+Image of the cron implementation, set to execute a full backup every Sunday at 1am and an incremental backup every 6 hours".
+
+
+<br><br>
+    
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/proof2.png">
+</div>
+
+<br><br>
+
+Image of the emergency backup being created after the threshold was exceeded. It also removes files older than3 years old to free up space. There is no risk of losing the old files as the emergency backup acts as a recovery point.
+
+## Cron Scheduling
 
 To maintain systemic resilience without disrupting business productivity, cron jobs are scheduled for automated background maintenance.
 
@@ -177,6 +226,33 @@ To maintain systemic resilience without disrupting business productivity, cron j
 0 * * * * /home/jaz/Desktop/JaskaranMahal-DiskMonitor.sh "/dev/sda2" 80 "/home/jaz/Desktop" "files"
 
 ```
+
+## Verification
+
+<br><br>
+    
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/cron1.png">
+</div>
+
+<br><br>
+
+
+Image of the cron implementation, set to execute a full backup every Sunday at 1am and an incremental backup every 6 hours
+
+
+<br><br>
+    
+<div align="center">
+  <img src="https://github.com/JaskaranM/Jaskaran-Porfolio/blob/main/images/cron2.png">
+</div>
+
+<br><br>
+
+
+Image of the cron implementation, set to execute every hour that then triggers an emergency backup when the threshold of 80% is exceeded
+
+
 
 ## Business Continuity Management (BCM) Strategy
 
@@ -213,3 +289,5 @@ Following the NIST Cloud Computing Reference Architecture (SP 800-145)**, NanoTe
 * SaaS (Software as a Service): Transitioning email and productivity suites to Microsoft 365 delivers a near-zero RTO, 99.9%+ SLA uptime, and secure remote working capability.
 * PaaS (Platform as a Service): Moving web operations to services like AWS Elastic Beanstalk grants developers full deployment control and security integration without managing the underlying OS.
 
+## Conclusion
+This project taught me how to think as a system administration, automating tasks to improve RTO and RPO times in order to minimise the risk of data loss. The second half pushed me to look at the current infrastructure and to determine weakpoints, flaws, bottlenecks and to then provide a strategy and suggestions to minimise the impact a disaster would have on the business.
