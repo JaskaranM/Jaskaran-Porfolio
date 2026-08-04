@@ -1,4 +1,4 @@
-# Enterprise Systems Administration & Business Continuity Infrastructure
+# Systems Administration & Business Continuity Infrastructure
 
 ---
 
